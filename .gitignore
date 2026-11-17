@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.vite/
+coleccion/
+*.local
+.DS_Store
