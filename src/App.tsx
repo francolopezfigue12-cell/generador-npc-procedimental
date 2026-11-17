@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ControlBar } from './components/controls/ControlBar';
 import { SavedCharactersGallery } from './components/gallery/SavedCharactersGallery';
 import { AppearanceSection } from './components/profile/AppearanceSection';
+import { CharacterStoryPanel } from './components/profile/CharacterStoryPanel';
 import { PowersSection } from './components/profile/PowersSection';
 import { PsychologySection } from './components/profile/PsychologySection';
 import { TurnaroundPromptPanel } from './components/turnaround/TurnaroundPromptPanel';
@@ -30,6 +31,8 @@ export function App() {
     powersEnabled,
     contrastMode,
     turnaroundPrompt,
+    narrative,
+    notes,
     generatedImageDataUrl,
     isGeneratingImage,
     imageError,
@@ -37,6 +40,7 @@ export function App() {
     savedCharacters,
     recentHistory,
     isSavedInCollection,
+    setNotes,
     setContrastMode,
     updateFreeLlmApiConfig,
     togglePowersModule,
@@ -111,6 +115,13 @@ export function App() {
           onSetManualImage={setManualImage}
           onOpenApiSettings={() => setIsApiModalOpen(true)}
           onSaveToCollection={() => void saveCurrentToCollection()}
+        />
+
+        {/* 1.5 HISTORIA DE CORRIDO + NOTAS PERSONALES */}
+        <CharacterStoryPanel
+          narrative={narrative}
+          notes={notes}
+          onChangeNotes={setNotes}
         />
 
         {/* Navegación rápida hacia la información detallada y galería */}

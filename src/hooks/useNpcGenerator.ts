@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { generateNpc } from '../engine/generateNpc';
+import { buildCharacterNarrative } from '../engine/narrativeBuilder';
 import { generateRandomSeed } from '../engine/rng';
 import { buildTurnaroundPrompt } from '../prompts/turnaroundPromptBuilder';
 import {
@@ -66,6 +67,7 @@ export function useNpcGenerator() {
   );
 
   const [generatedImageDataUrl, setGeneratedImageDataUrl] = useState<string | null>(null);
+  const [notes, setNotes] = useState<string>('');
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [imageError, setImageError] = useState<string | null>(null);
   const [freeLlmApiConfig, setFreeLlmApiConfig] = useState<FreeLlmApiConfig>(() =>
@@ -109,6 +111,7 @@ export function useNpcGenerator() {
   );
 
   const turnaroundPrompt = useMemo(() => buildTurnaroundPrompt(npc), [npc]);
+  const narrative = useMemo(() => buildCharacterNarrative(npc), [npc]);
 
   const isSavedInCollection = useMemo(
     () => savedCharacters.some((item) => item.id === npc.id),
@@ -131,6 +134,7 @@ export function useNpcGenerator() {
       });
       setNpc(nextNpc);
       setGeneratedImageDataUrl(null);
+      setNotes('');
       setImageError(null);
     },
     [contrastMode, powersEnabled]
@@ -252,6 +256,7 @@ export function useNpcGenerator() {
       generatedImageDataUrl,
       isFavorite: existing?.isFavorite ?? false,
       savedAtIso: new Date().toISOString(),
+      notes: notes.trim() || undefined,
     };
     await upsertSavedCharacter(record);
     setSavedCharacters((prev) => {
@@ -264,6 +269,7 @@ export function useNpcGenerator() {
     setPowersEnabled(Boolean(record.profile.powers));
     setNpc(record.profile);
     setGeneratedImageDataUrl(record.generatedImageDataUrl ?? null);
+    setNotes(record.notes ?? '');
     setImageError(null);
     setLocks({});
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -305,6 +311,8 @@ export function useNpcGenerator() {
     powersEnabled,
     contrastMode,
     turnaroundPrompt,
+    narrative,
+    notes,
     generatedImageDataUrl,
     isGeneratingImage,
     imageError,
@@ -312,6 +320,7 @@ export function useNpcGenerator() {
     savedCharacters,
     recentHistory,
     isSavedInCollection,
+    setNotes,
     setContrastMode,
     updateFreeLlmApiConfig,
     togglePowersModule,

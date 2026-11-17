@@ -69,7 +69,7 @@ export function PsychologySection({
           lockKey="fatalFlaw"
           isLocked={Boolean(locks.fatalFlaw)}
           onToggleLock={onToggleLock}
-          label="4. Falla Fatal (Hamartia)"
+          label="4. Defecto Principal (Falla Trágica)"
           title={personality.fatalFlaw.name}
           subtitle={personality.fatalFlaw.description}
         />
@@ -96,7 +96,7 @@ export function PsychologySection({
           lockKey="defenseMechanism"
           isLocked={Boolean(locks.defenseMechanism)}
           onToggleLock={onToggleLock}
-          label="7. Mecanismo de Defensa (Vaillant)"
+          label="7. Cómo Reacciona Bajo Estrés"
           badge={personality.defenseMechanism.maturityLabel}
           title={personality.defenseMechanism.name}
           subtitle={personality.defenseMechanism.behavioralManifestation}
@@ -110,7 +110,7 @@ export function PsychologySection({
           lockKey="socialAttitude"
           isLocked={Boolean(locks.socialAttitude)}
           onToggleLock={onToggleLock}
-          label="8. Actitud Social Matriz"
+          label="8. Cómo Trata a los Demás"
           title={personality.socialAttitude.name}
           subtitle={personality.socialAttitude.description}
         />
@@ -167,7 +167,7 @@ export function PsychologySection({
         lockKey="dyadicTraits"
         isLocked={Boolean(locks.dyadicTraits)}
         onToggleLock={onToggleLock}
-        label="10c. Rasgos Diádicos de Pendragon (1–20)"
+        label="10c. Carácter y Extremos de Personalidad (1–20)"
         badge={
           activeCompulsions.length > 0
             ? `${activeCompulsions.length} compulsiones activas (≥16)`
